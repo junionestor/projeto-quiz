@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz Interativo: Energia em Jogo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>💡 Quiz: Energia em Jogo! 💡</h1>
+        <div id="startScreen">
+            <p>Seja bem-vindo(a)! O quiz recompensa quem responde mais **rápido e correto**. ⚡</p>
+            <p>Digite seu nome para começar:</p>
+            <input type="text" id="playerName" placeholder="Seu nome">
+            <br><br>
+            <button class="action-button" onclick="startQuiz()">Iniciar Quiz</button>
+        </div>
+
+        <div id="quizScreen" style="display:none;">
+            <div id="progress"></div>
+            <div id="questionContainer"></div>
+            <div id="feedback"></div>
+        </div>
+
+        <div id="endScreen" style="display:none;">
+            <h2>🏆 Quiz Finalizado! 🏆</h2>
+            <p id="finalScore"></p>
+            <div>
+                <button class="action-button" onclick="window.location.reload()">Jogar Novamente</button>
+            </div>
+            <div id="ranking">
+                <h2>Ranking Global:</h2>
+                <ol id="rankingList"></ol>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/questions.js"></script>
+    <script src="js/app.js"></script>
+</body>
+
+</html>

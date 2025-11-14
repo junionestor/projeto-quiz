@@ -1,0 +1,22 @@
+const allQuestions = [
+    { question: "Qual é a principal fonte de consumo de energia em escritórios?", options: ["Impressoras", "Iluminação", "Computadores", "Ar-condicionado"], answer: 3, points: 1000 },
+    { question: "Qual prática ajuda a reduzir o consumo de energia com iluminação?", options: ["Usar lâmpadas incandescentes", "Manter luzes acesas o tempo todo", "Aproveitar luz natural", "Pintar as paredes de cores escuras"], answer: 2, points: 1000 },
+    { question: "O que é um equipamento com selo Procel?", options: ["Consome mais energia", "Tem garantia estendida", "Tem eficiência energética comprovada", "É importado"], answer: 2, points: 1000 },
+    { question: "Qual atitude simples reduz o consumo dos computadores?", options: ["Deixar ligados à noite", "Ativar modo de suspensão", "Aumentar brilho da tela", "Usar protetores de tela animados"], answer: 1, points: 1000 },
+    { question: "Qual é o horário de pico de energia no Brasil?", options: ["Madrugada", "Meio-dia", "Entre 18h e 21h", "Manhã cedo"], answer: 2, points: 1000 },
+    { question: "Qual é a forma mais eficiente de climatizar um escritório?", options: ["Manter o ar-condicionado em 17°C", "Regular a temperatura entre 23°C e 25°C", "Deixar janelas abertas com ar ligado", "Ligar e desligar várias vezes"], answer: 1, points: 1000 },
+    { question: "Como o monitor pode economizar energia?", options: ["Aumentando o brilho", "Desligando quando não estiver em uso", "Deixando em stand-by o dia todo", "Usando fundo de tela claro"], answer: 1, points: 1000 },
+    { question: "O que significa 'eficiência energética'?", options: ["Usar menos energia para mesma tarefa", "Evitar usar eletrônicos", "Reduzir o consumo total", "Aumentar potência dos aparelhos"], answer: 0, points: 1000 },
+    { question: "Por que desligar o computador no fim do expediente é importante?", options: ["Evita superaquecimento", "Economiza energia", "Atualiza o sistema", "Gera relatórios automáticos"], answer: 1, points: 1000 },
+    { question: "Qual tipo de lâmpada é mais eficiente?", options: ["Incandescente", "Halógena", "Fluorescente", "LED"], answer: 3, points: 1000 },
+    { question: "É vantajoso usar tomadas inteligentes?", options: ["Sim, ajudam a cortar o consumo em stand-by", "Não, gastam mais energia", "Apenas em residências", "Só em aparelhos grandes"], answer: 0, points: 1000 },
+    { question: "Qual o impacto de deixar equipamentos em stand-by?", options: ["Nenhum", "Consomem energia desnecessária", "Prolongam a vida útil", "Aumentam a eficiência"], answer: 1, points: 1000 },
+    { question: "O que ajuda a reduzir o uso do ar-condicionado?", options: ["Fechar janelas", "Usar cortinas e ventilação cruzada", "Aumentar a potência", "Ligar ventiladores e ar juntos"], answer: 1, points: 1000 },
+    { question: "Como o layout do escritório pode influenciar o consumo de energia?", options: ["Organizando estações perto da luz natural", "Usando divisórias escuras", "Afastando janelas", "Evitando refletores"], answer: 0, points: 1000 },
+    { question: "Desligar monitores durante reuniões é uma boa prática?", options: ["Sim, reduz consumo", "Não faz diferença", "Pode causar falhas", "Apenas se forem CRT"], answer: 0, points: 1000 },
+    { question: "Qual medida reduz o gasto com impressão?", options: ["Imprimir em alta qualidade", "Usar papel reciclado", "Evitar impressões desnecessárias", "Manter impressora sempre ligada"], answer: 2, points: 1000 },
+    { question: "Por que realizar manutenção nos equipamentos elétricos?", options: ["Evita ruídos", "Melhora eficiência e reduz consumo", "Aumenta o tamanho do aparelho", "Torna mais bonito"], answer: 1, points: 1000 },
+    { question: "O que é o 'consumo fantasma'?", options: ["Energia usada por aparelhos desligados na tomada", "Uso de energia solar", "Falha de medição", "Perda por calor"], answer: 0, points: 1000 },
+    { question: "Como economizar energia nos elevadores?", options: ["Usar escadas quando possível", "Diminuir a velocidade", "Manter luz acesa o tempo todo", "Evitar manutenção"], answer: 0, points: 1000 },
+    { question: "Qual é uma atitude coletiva eficaz para economizar energia?", options: ["Campanhas de conscientização", "Deixar luzes acesas por segurança", "Evitar conversar sobre o tema", "Trocar lâmpadas com pouca frequência"], answer: 0, points: 1000 }
+];

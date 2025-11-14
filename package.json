@@ -1,0 +1,23 @@
+{
+  "name": "projeto-quiz",
+  "version": "1.0.0",
+  "description": "Quiz interativo: Energia em Jogo",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "quiz",
+    "nodejs",
+    "express",
+    "energia",
+    "jogo"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5"
+  }
+}
