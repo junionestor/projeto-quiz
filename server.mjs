@@ -1,11 +1,11 @@
-import express from 'express';
-import cors from 'cors';
-import fs from 'fs';
-import path from 'path';
-
-const __dirname = process.cwd();
+const express = require('express');
+const cors = require('cors');
+const fs = require('fs');
+const path = require('path');
 
 const app = express();
+const PORT = 3000;
+console.log('dirname', __dirname)
 const SCORES_FILE = path.join(__dirname, 'scores.json');
 
 app.use(cors());
@@ -90,5 +90,4 @@ app.delete('/api/scores', (req, res) => {
     }
 });
 
-export { app };
-export default app;
+module.exports = { app };
