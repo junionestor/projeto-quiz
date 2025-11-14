@@ -1,6 +1,7 @@
 {
   "name": "projeto-quiz",
   "version": "1.0.0",
+  "type": "module",
   "description": "Quiz interativo: Energia em Jogo",
   "main": "dist/server.js",
   "scripts": {

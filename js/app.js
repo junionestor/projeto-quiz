@@ -6,7 +6,20 @@ let questionActive = false;
 let questionStartTime;
 let totalTimeTaken = 0;
 
-const API_BASE_URL = 'http://localhost:3000/api';
+// Detecta automaticamente o base URL da API baseado no ambiente
+function getApiBaseUrl() {
+    // Se estiver rodando no Netlify (produção ou netlify dev), usa caminho relativo
+    // O Netlify redireciona todas as rotas para /.netlify/functions/app/
+    if (window.location.hostname.includes('netlify.app') || 
+        window.location.hostname === 'localhost' && window.location.port === '8888') {
+        // Em ambiente Netlify, usa caminho relativo (será redirecionado pela função)
+        return '/api';
+    }
+    // Em desenvolvimento local com servidor Express separado
+    return 'http://localhost:3000/api';
+}
+
+const API_BASE_URL = getApiBaseUrl();
 
 async function startQuiz() {
     playerName = document.getElementById("playerName").value.trim();

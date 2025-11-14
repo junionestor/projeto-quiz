@@ -1,7 +1,31 @@
-const express = require('express');
-const cors = require('cors');
-const fs = require('fs');
-const path = require('path');
+import express from 'express';
+import cors from 'cors';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// Helper para obter __dirname que funciona tanto em ESM quanto quando compilado para CJS
+function getDirname() {
+    // Tenta usar import.meta.url (ESM nativo)
+    if (typeof import.meta !== 'undefined' && import.meta.url) {
+        try {
+            const url = import.meta.url;
+            if (url && typeof url === 'string') {
+                const __filename = fileURLToPath(url);
+                return path.dirname(__filename);
+            }
+        } catch (e) {
+            // Se fileURLToPath falhar, continua para fallback
+        }
+    }
+    
+    // Fallback: usa process.cwd() (funciona em ambos os casos)
+    // Para Netlify Functions, isso apontará para o diretório de trabalho da função
+    // Em ambiente local, apontará para o diretório do projeto
+    return process.cwd();
+}
+
+const __dirname = getDirname();
 
 const app = express();
 const SCORES_FILE = path.join(__dirname, 'scores.json');
@@ -88,9 +112,5 @@ app.delete('/api/scores', (req, res) => {
     }
 });
 
-module.exports = { app };
-
-app.listen(3000, () => {
-    console.log(`Servidor rodando em http://localhost:${3000}`);
-    console.log(`API disponível em http://localhost:${3000}/api`);
-});
+export { app };
+export default app;
