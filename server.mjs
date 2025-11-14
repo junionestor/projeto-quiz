@@ -1,7 +1,5 @@
 import express from 'express';
 import cors from 'cors';
-import path from 'path';
-import { fileURLToPath } from 'url';
 import ScoreService from './services/ScoreService.mjs';
 import ScoreController from './controllers/ScoreController.mjs';
 import { getProjectRoot } from './utils/pathUtils.mjs';
@@ -32,17 +30,3 @@ app.delete('/api/scores', (req, res) => scoreController.deleteScores(req, res));
 
 export { app };
 export default app;
-
-// Inicia o servidor apenas se executado diretamente (não quando importado)
-// Em ES modules, verificamos se o módulo foi executado diretamente
-// const __filename = fileURLToPath(import.meta.url);
-// const __filepath = process.argv[1] ? fileURLToPath(`file://${process.argv[1]}`) : '';
-
-// // Verifica se o arquivo atual é o mesmo que está sendo executado
-// if (__filename === __filepath || process.argv[1]?.endsWith('server.mjs')) {
-//     app.listen(PORT, () => {
-//         console.log(`Servidor rodando em http://localhost:${PORT}`);
-//         console.log(`API disponível em http://localhost:${PORT}/api`);
-//     });
-// }
-
