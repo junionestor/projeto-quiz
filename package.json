@@ -6,7 +6,8 @@
   "main": "server.mjs",
   "scripts": {
     "start": "node server.mjs",
-    "dev": "node server.mjs"
+    "dev": "node server.mjs",
+    "db:init": "node db/init.mjs"
   },
   "keywords": [
     "quiz",
@@ -19,9 +20,11 @@
   "license": "ISC",
   "dependencies": {
     "@netlify/functions": "^5.1.0",
+    "@netlify/neon": "^0.1.0",
     "@types/express": "^5.0.5",
     "cors": "^2.8.5",
     "express": "^4.21.2",
+    "postgres": "^3.4.7",
     "serverless-http": "^4.0.0"
   }
 }

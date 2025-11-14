@@ -8,15 +8,18 @@ let totalTimeTaken = 0;
 
 // Detecta automaticamente o base URL da API baseado no ambiente
 function getApiBaseUrl() {
-    // Se estiver rodando no Netlify (produção ou netlify dev), usa caminho relativo
-    // O Netlify redireciona todas as rotas para /.netlify/functions/app/
-    if (window.location.hostname.includes('netlify.app') || 
-        window.location.hostname === 'localhost' && window.location.port === '8888') {
-        // Em ambiente Netlify, usa caminho relativo (será redirecionado pela função)
-        return '/api';
+    const host = window.location.hostname;
+    const port = window.location.port;
+    const protocol = window.location.protocol;
+
+    if (host.includes('netlify.app')) {
+        if (port) {
+            return `${protocol}//${host}:${port}/api`;
+        }
+        return `${protocol}//${host}/api`;
     }
-    // Em desenvolvimento local com servidor Express separado
-    return 'http://localhost:3000/api';
+
+    return '/api';
 }
 
 const API_BASE_URL = getApiBaseUrl();

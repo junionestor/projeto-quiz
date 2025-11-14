@@ -7,8 +7,14 @@
   
 [build.environment]
   NODE_VERSION = "22"
+
 [[redirects]]
   force = true
-  from = "/*"
+  from = "/api/*"
   status = 200
   to = "/.netlify/functions/app/:splat"
+
+[[redirects]]
+  from = "/"
+  to = "index.html"
+  status = 200

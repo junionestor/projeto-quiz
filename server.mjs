@@ -21,7 +21,7 @@ const scoreController = new ScoreController(scoreService);
 const homeController = new HomeController();
 
 // Rotas de páginas
-app.get('/', (req, res) => homeController.getIndex(req, res));
+// app.get('/', (req, res) => homeController.getIndex(req, res));
 app.get('/ranking.html', (req, res) => homeController.getRanking(req, res));
 
 // Rotas da API
