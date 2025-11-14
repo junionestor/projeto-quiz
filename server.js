@@ -1,10 +1,10 @@
-const express = require('express');
-const cors = require('cors');
-const fs = require('fs');
-const path = require('path');
+import express from 'express';
+import cors from 'cors';
+import fs from 'fs';
+import path from 'path';
 
 const app = express();
-const SCORES_FILE = path.join(__dirname, 'scores.json');
+const SCORES_FILE = path.join(process.cwd(), 'scores.json');
 
 app.use(cors());
 app.use(express.json());
