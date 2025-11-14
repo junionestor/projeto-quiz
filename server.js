@@ -88,6 +88,8 @@ app.delete('/api/scores', (req, res) => {
     }
 });
 
+module.exports = { app };
+
 app.listen(3000, () => {
     console.log(`Servidor rodando em http://localhost:${3000}`);
     console.log(`API disponível em http://localhost:${3000}/api`);
