@@ -1,31 +1,34 @@
 import express from 'express';
 import cors from 'cors';
-import fs from 'fs';
+import { promises as fs } from 'fs'; 
 import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
-const SCORES_FILE = path.join(process.cwd(), 'scores.json');
+const SCORES_FILE = path.join(__dirname, 'scores.json'); 
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static(__dirname));
+app.use(express.static(__dirname)); 
 
-function readScores() {
+async function readScores() {
     try {
-        if (fs.existsSync(SCORES_FILE)) {
-            const data = fs.readFileSync(SCORES_FILE, 'utf8');
-            return JSON.parse(data);
-        }
-        return [];
+        const data = await fs.readFile(SCORES_FILE, 'utf8');
+        return JSON.parse(data);
     } catch (error) {
-        console.error('Erro ao ler scores:', error);
+        if (error.code !== 'ENOENT') {
+            console.error('Erro ao ler scores:', error);
+        }
         return [];
     }
 }
 
-function writeScores(scores) {
+async function writeScores(scores) {
     try {
-        fs.writeFileSync(SCORES_FILE, JSON.stringify(scores, null, 2), 'utf8');
+        await fs.writeFile(SCORES_FILE, JSON.stringify(scores, null, 2), 'utf8');
         return true;
     } catch (error) {
         console.error('Erro ao escrever scores:', error);
@@ -33,10 +36,9 @@ function writeScores(scores) {
     }
 }
 
-app.get('/api/scores', (req, res) => {
+app.get('/api/scores', async (req, res) => {
     try {
-        const scores = readScores();
-        // Ordenar: Prioriza Score > Menor Tempo Total
+        const scores = await readScores(); 
         const sortedScores = scores.sort((a, b) => b.score - a.score || a.time - b.time);
         res.json(sortedScores);
     } catch (error) {
@@ -44,27 +46,32 @@ app.get('/api/scores', (req, res) => {
     }
 });
 
-app.post('/api/scores', (req, res) => {
+app.post('/api/scores', async (req, res) => {
     try {
         const { name, score, time, date } = req.body;
 
-        if (!name || score === undefined || time === undefined) {
-            return res.status(400).json({ error: 'Dados incompletos' });
+        const parsedScore = parseInt(score);
+        const parsedTime = parseInt(time);
+
+        if (!name || isNaN(parsedScore) || isNaN(parsedTime)) {
+            return res.status(400).json({ error: 'Dados incompletos ou inválidos' });
         }
 
-        const scores = readScores();
+        const scores = await readScores();
 
         const newScore = {
             id: Date.now().toString(),
             name: name.trim(),
-            score: parseInt(score),
-            time: parseInt(time),
+            score: parsedScore,
+            time: parsedTime,
             date: date || new Date().toISOString()
         };
 
         scores.push(newScore);
 
-        if (writeScores(scores)) {
+        const success = await writeScores(scores);
+
+        if (success) {
             res.status(201).json(newScore);
         } else {
             res.status(500).json({ error: 'Erro ao salvar pontuação' });
@@ -75,9 +82,10 @@ app.post('/api/scores', (req, res) => {
     }
 });
 
-app.delete('/api/scores', (req, res) => {
+app.delete('/api/scores', async (req, res) => {
     try {
-        if (writeScores([])) {
+        const success = await writeScores([]);
+        if (success) {
             res.json({ message: 'Ranking limpo com sucesso' });
         } else {
             res.status(500).json({ error: 'Erro ao limpar ranking' });
@@ -89,3 +97,7 @@ app.delete('/api/scores', (req, res) => {
 });
 
 export default app;
+
+app.listen(3000, () => {
+    console.log('Servidor rodando na porta 3000');
+});

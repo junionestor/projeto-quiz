@@ -4,8 +4,8 @@
   "description": "Quiz interativo: Energia em Jogo",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "node server.js"
+    "start": "node server.mjs",
+    "dev": "node server.mjs"
   },
   "keywords": [
     "quiz",
