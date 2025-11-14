@@ -6,7 +6,7 @@
   command = "echo 'No build needed'"
   
 [build.environment]
-  NODE_VERSION = "24"
+  NODE_VERSION = "22"
 [[redirects]]
   force = true
   from = "/*"
