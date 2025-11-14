@@ -1,11 +1,12 @@
 {
   "name": "projeto-quiz",
   "version": "1.0.0",
+  "type": "module",
   "description": "Quiz interativo: Energia em Jogo",
-  "main": "server.js",
+  "main": "server.mjs",
   "scripts": {
-    "start": "node server.js",
-    "dev": "node server.js"
+    "start": "node server.mjs",
+    "dev": "node server.mjs"
   },
   "keywords": [
     "quiz",
@@ -17,7 +18,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.2",
-    "cors": "^2.8.5"
+    "@netlify/functions": "^5.1.0",
+    "@types/express": "^5.0.5",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "serverless-http": "^4.0.0"
   }
 }
