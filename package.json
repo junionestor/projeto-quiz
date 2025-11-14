@@ -5,8 +5,7 @@
   "main": "dist/server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "node server.js",
-    "build": "esbuild --bundle server.js --outfile=dist/server.js --format=esm --platform=node"
+    "dev": "node server.js"
   },
   "keywords": [
     "quiz",

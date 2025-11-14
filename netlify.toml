@@ -1,10 +1,7 @@
-[build]
-  publish = "dist"
-  functions = "netlify/functions"
 [functions]
   external_node_modules = ["express"]
 [[redirects]]
   force = true
   from = "/*"
   status = 200
-  to = "/.netlify/functions/app.mjs/:splat"
+  to = "/.netlify/functions/app.js/:splat"
