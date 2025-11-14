@@ -6,8 +6,9 @@ import { getProjectRoot } from './utils/pathUtils.mjs';
 
 const app = express();
 const PORT = 3000;
-console.log('dirname', __dirname)
-const SCORES_FILE = path.join(__dirname, 'scores.json');
+
+// Obtém o diretório raiz do projeto de forma confiável
+const __dirname = getProjectRoot();
 
 app.use(cors());
 app.use(express.json());
