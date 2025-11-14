@@ -2,11 +2,11 @@
   "name": "projeto-quiz",
   "version": "1.0.0",
   "description": "Quiz interativo: Energia em Jogo",
-  "main": "server.js",
+  "main": "dist/server.js",
   "scripts": {
-    "start": "node server.mjs",
-    "dev": "node server.mjs",
-    "build": "esbuild --bundle server.mjs --outfile=server.js --format=esm --platform=node"
+    "start": "node server.js",
+    "dev": "node server.js",
+    "build": "esbuild --bundle server.js --outfile=dist/server.js --format=esm --platform=node"
   },
   "keywords": [
     "quiz",

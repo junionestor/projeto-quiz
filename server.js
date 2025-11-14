@@ -1,18 +1,14 @@
 import express from 'express';
 import cors from 'cors';
-import { promises as fs } from 'fs'; 
+import { promises as fs } from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
-
-const __filename = fileURLToPath(__dirname);
-const __dirname = path.dirname(__filename);
 
 const app = express();
-const SCORES_FILE = path.join(__dirname, 'scores.json'); 
+const SCORES_FILE = path.join(__dirname, 'scores.json');
 
 app.use(cors());
 app.use(express.json());
-app.use(express.static(__dirname)); 
+app.use(express.static(__dirname));
 
 async function readScores() {
     try {
@@ -38,7 +34,7 @@ async function writeScores(scores) {
 
 app.get('/api/scores', async (req, res) => {
     try {
-        const scores = await readScores(); 
+        const scores = await readScores();
         const sortedScores = scores.sort((a, b) => b.score - a.score || a.time - b.time);
         res.json(sortedScores);
     } catch (error) {
