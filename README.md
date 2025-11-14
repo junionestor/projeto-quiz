@@ -18,7 +18,7 @@
 
 ## 🌐 Acesse o Jogo Online
 
-👉 **Jogue agora:** [https://energia-em-jogo.netlify.app/](https://energia-em-jogo.netlify.app/)
+👉 **Jogue agora:** [https://projeto-quiz-energia.netlify.app/](https://projeto-quiz-energia.netlify.app/)
 
 ---
 
@@ -41,7 +41,7 @@ O jogador responde a perguntas sobre consumo, sustentabilidade e boas práticas 
 
 ## 🕹️ Como Jogar
 
-1. Acesse o jogo pelo link: [https://energia-em-jogo.netlify.app/](https://energia-em-jogo.netlify.app/)  
+1. Acesse o jogo pelo link: [https://projeto-quiz-energia.netlify.app/](https://projeto-quiz-energia.netlify.app/)  
 2. Leia atentamente cada pergunta e selecione a alternativa correta.  
 3. Receba feedback visual (animações de acerto ou erro).  
 4. Acompanhe seu progresso e tente acertar todas as 12 perguntas!  
