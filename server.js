@@ -4,7 +4,6 @@ const fs = require('fs');
 const path = require('path');
 
 const app = express();
-const PORT = 3000;
 const SCORES_FILE = path.join(__dirname, 'scores.json');
 
 app.use(cors());
@@ -89,8 +88,4 @@ app.delete('/api/scores', (req, res) => {
     }
 });
 
-app.listen(PORT, () => {
-    console.log(`Servidor rodando em http://localhost:${PORT}`);
-    console.log(`API disponível em http://localhost:${PORT}/api`);
-});
-
+export default app;
