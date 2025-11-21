@@ -32,11 +32,20 @@ async function startQuiz() {
     }
 
     // Escolher perguntas aleatórias
-    questions = allQuestions.sort(() => 0.5 - Math.random()).slice(0, 12);
+    questions = getRandomQuestions(allQuestions, 12);
 
     document.getElementById("startScreen").style.display = "none";
     document.getElementById("quizScreen").style.display = "block";
     showQuestion();
+}
+
+function getRandomQuestions(sourceQuestions, count) {
+    const pool = [...sourceQuestions];
+    for (let i = pool.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [pool[i], pool[j]] = [pool[j], pool[i]];
+    }
+    return pool.slice(0, Math.min(count, pool.length));
 }
 
 function showQuestion() {
@@ -140,14 +149,21 @@ async function endQuiz() {
     document.getElementById("endScreen").style.display = "block";
 
     const totalTimeSeconds = Math.round(totalTimeTaken / 1000);
-    document.getElementById("finalScore").textContent = `${playerName}, seu score final foi de ${totalScore} pontos. Seu tempo total foi de ${totalTimeSeconds} segundos.`;
+    let scoreMessage = `${playerName}, seu score final foi de ${totalScore} pontos. Seu tempo total foi de ${totalTimeSeconds} segundos.`;
 
     // Salvar pontuação no backend
     try {
-        await saveScore(playerName, totalScore, totalTimeSeconds);
+        const result = await saveScore(playerName, totalScore, totalTimeSeconds);
+        if (result && result.updated) {
+            scoreMessage += `\n\n🔄 Seu score anterior (${result.previousScore} pontos) foi substituído pelo novo score maior!`;
+        } else if (result && result.message) {
+            scoreMessage += `\n\nℹ️ ${result.message}`;
+        }
     } catch (error) {
         console.error("Erro ao salvar pontuação:", error);
     }
+
+    document.getElementById("finalScore").textContent = scoreMessage;
 
     // Carregar e exibir ranking global
     await loadGlobalRanking();

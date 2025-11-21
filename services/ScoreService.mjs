@@ -38,6 +38,11 @@ class ScoreService {
             await this.sql`
                 CREATE INDEX IF NOT EXISTS idx_scores_score_time ON scores(score DESC, time ASC)
             `;
+            
+            // Create index for name lookups
+            await this.sql`
+                CREATE INDEX IF NOT EXISTS idx_scores_name ON scores(name)
+            `;
         } catch (error) {
             console.error('Error ensuring table exists:', error);
         }
@@ -66,13 +71,92 @@ class ScoreService {
         }
     }
 
-    async createScore(name, score, time, date) {
+    async getScoreByName(name) {
+        try {
+            const trimmedName = name.trim();
+            const [existingScore] = await this.sql`
+                SELECT id, name, score, time, date, created_at
+                FROM scores
+                WHERE name = ${trimmedName}
+                LIMIT 1
+            `;
+            
+            if (existingScore) {
+                return {
+                    id: existingScore.id.toString(),
+                    name: existingScore.name,
+                    score: existingScore.score,
+                    time: existingScore.time,
+                    date: existingScore.date ? new Date(existingScore.date).toISOString() : new Date().toISOString()
+                };
+            }
+            return null;
+        } catch (error) {
+            console.error('Erro ao buscar score por nome:', error);
+            return null;
+        }
+    }
+
+    async updateScore(id, score, time, date) {
         try {
             const dateValue = date ? new Date(date) : new Date();
             
+            const [updatedScore] = await this.sql`
+                UPDATE scores
+                SET score = ${parseInt(score)}, time = ${parseInt(time)}, date = ${dateValue}
+                WHERE id = ${parseInt(id)}
+                RETURNING id, name, score, time, date
+            `;
+
+            if (updatedScore) {
+                return {
+                    id: updatedScore.id.toString(),
+                    name: updatedScore.name,
+                    score: updatedScore.score,
+                    time: updatedScore.time,
+                    date: updatedScore.date ? new Date(updatedScore.date).toISOString() : new Date().toISOString()
+                };
+            }
+            return null;
+        } catch (error) {
+            console.error('Erro ao atualizar score:', error);
+            return null;
+        }
+    }
+
+    async createScore(name, score, time, date) {
+        try {
+            const trimmedName = name.trim();
+            const parsedScore = parseInt(score);
+            const parsedTime = parseInt(time);
+            const dateValue = date ? new Date(date) : new Date();
+            
+            // Verifica se já existe um score com o mesmo nome
+            const existingScore = await this.getScoreByName(trimmedName);
+            
+            if (existingScore) {
+                // Se o novo score for maior, atualiza o existente
+                if (parsedScore > existingScore.score) {
+                    const updatedScore = await this.updateScore(existingScore.id, parsedScore, parsedTime, dateValue);
+                    return {
+                        ...updatedScore,
+                        updated: true,
+                        previousScore: existingScore.score
+                    };
+                } else {
+                    // Se o novo score for menor ou igual, retorna o score existente sem atualizar
+                    return {
+                        ...existingScore,
+                        updated: false,
+                        message: 'Score não atualizado (score anterior é maior ou igual)'
+                    };
+                }
+            }
+            
+            // Se não existe, cria um novo score
             const [newScore] = await this.sql`
                 INSERT INTO scores (name, score, time, date)
-                VALUES (${name.trim()}, ${parseInt(score)}, ${parseInt(time)}, ${dateValue})
+                VALUES (${trimmedName}, ${parsedScore}, ${parsedTime}, ${dateValue})
                 RETURNING id, name, score, time, date
             `;
 
@@ -81,7 +165,8 @@ class ScoreService {
                 name: newScore.name,
                 score: newScore.score,
                 time: newScore.time,
-                date: newScore.date ? new Date(newScore.date).toISOString() : new Date().toISOString()
+                date: newScore.date ? new Date(newScore.date).toISOString() : new Date().toISOString(),
+                updated: false
             };
         } catch (error) {
             console.error('Erro ao criar score:', error);
